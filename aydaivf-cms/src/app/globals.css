@@ -1,28 +1,64 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+    --ayda-pink-light: oklch(86.8% 0.16 354.1);
+    --ayda-pink-dark: oklch(71.8% 0.202 349.761);
+    --ayda-blue: oklch(92.9% 0.013 255.508);
+    --ayda-black: #0a0a0a;
+    --ayda-gray: #6b7280;
+    --ayda-white: #ffffff;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* Text utilities */
+.text-ayda-black { color: var(--ayda-black); }
+.text-ayda-white { color: var(--ayda-white); }
+.text-ayda-pink-dark { color: var(--ayda-pink-dark); }
+.text-ayda-pink-light { color: var(--ayda-pink-light); }
+.text-ayda-gray { color: var(--ayda-gray); }
+
+/* Backgrounds */
+.bg-ayda-pink-dark { background-color: var(--ayda-pink-dark); }
+.bg-ayda-pink-light { background-color: var(--ayda-pink-light); }
+.bg-ayda-blue { background-color: var(--ayda-blue); }
+
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+    :root {
+        --background: #0a0a0a;
+        --foreground: #ededed;
+    }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+html, body {
+    height: 100%;
+    background: var(--background);
+    color: var(--foreground);
+    font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Makale içerikleri */
 .article p { margin-block: 0.75rem; line-height: 1.75; }
 .article h2 { font-size: 1.5rem; font-weight: 600; margin-block: 1.25rem 0.5rem; }
+
+/* Utility Renk Kısayolları */
+.text-ayda-black      { color: var(--ayda-black); }
+.text-ayda-white      { color: var(--ayda-white); }
+.text-ayda-pink-dark  { color: var(--ayda-pink-dark); }
+.text-ayda-pink-light { color: var(--ayda-pink-light); }
+.text-ayda-gray-dark  { color: var(--ayda-gray-dark); }
+.text-ayda-gray-light { color: var(--ayda-gray-light); }
+
+.bg-ayda-blue         { background-color: var(--ayda-blue); }
+.bg-ayda-pink-dark    { background-color: var(--ayda-pink-dark); }
+.bg-ayda-pink-light   { background-color: var(--ayda-pink-light); }
+
+.border-ayda-pink-light { border-color: var(--ayda-pink-light); }
+
+.hover\:text-ayda-pink-dark:hover { color: var(--ayda-pink-dark); }
+.hover\:bg-ayda-pink-dark:hover   { background-color: var(--ayda-pink-dark); }
+.hover\:bg-ayda-blue:hover        { background-color: var(--ayda-blue); }
+
+/* Container helper */
+.container {
+    @apply mx-auto w-full max-w-7xl px-4;
+}

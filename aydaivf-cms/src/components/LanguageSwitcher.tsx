@@ -2,14 +2,14 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const locales = ["tr","en"] as const;
-type L = typeof locales[number];
-
-export default function LanguageSwitcher({ locale }: { locale: L }) {
-    const pathname = usePathname() || "/";
-    const nextLocale: L = locale === "tr" ? "en" : "tr";
-    const parts = pathname.split("/");
-    parts[1] = nextLocale;
-    const target = parts.join("/") || `/${nextLocale}`;
-    return <Link href={target}>{locale === "tr" ? "English" : "Türkçe"}</Link>;
+export default function LanguageSwitcher({ locale }: { locale: "tr" | "en" }) {
+    const path = usePathname() || "/";
+    const to = (loc: "tr" | "en") => path.replace(/^\/(tr|en)(\/|$)/, `/${loc}$2`);
+    return (
+        <div className="inline-flex items-center text-xs font-medium">
+            <Link href={to("tr")} className={locale==="tr"?"text-black":"opacity-60 hover:opacity-80"}>TR</Link>
+            <span className="px-1 opacity-30">|</span>
+            <Link href={to("en")} className={locale==="en"?"text-black":"opacity-60 hover:opacity-80"}>EN</Link>
+        </div>
+    );
 }

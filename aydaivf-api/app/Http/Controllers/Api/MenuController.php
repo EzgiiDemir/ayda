@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
@@ -7,42 +6,21 @@ use Illuminate\Http\Request;
 
 class MenuController extends Controller
 {
-    public function main(Request $req)
+    public function show($key)
     {
-        $lang = $req->query('lang','tr');
+        $lang = request('lang', 'tr');
+        $menu = Menu::where('key', $key)->with(['items.children'])->firstOrFail();
 
-        // İhtiyaç olursa DB’den okuyacak hâle getirebilirsin.
-        // Şimdilik sabit JSON (TR/EN).
-        if ($lang === 'en') {
-            return response()->json([
-                'brand' => 'Ayda IVF',
-                'items' => [
-                    ['href' => '/en', 'label' => 'Home'],
-                    ['href' => '/en/about', 'label' => 'About'],
-                    ['href' => '/en/travel', 'label' => 'Travel'],
-                    ['href' => '/en/faq', 'label' => 'FAQ'],
-                    ['href' => '/en/contact', 'label' => 'Contact'],
-                ],
-                'treatments' => [
-                    ['href' => '/en/treatments/ivf-icsi', 'label' => 'IVF - ICSI'],
-                    ['href' => '/en/treatments/egg-donation', 'label' => 'Egg Donation'],
-                ],
-            ]);
-        }
+        $mapItem = function($item) use ($lang, &$mapItem) {
+            return [
+                'label' => $item->{'label_'.$lang},
+                'href' => $item->href,
+                'children' => $item->children->map($mapItem)->toArray()
+            ];
+        };
 
         return response()->json([
-            'brand' => 'Ayda IVF',
-            'items' => [
-                ['href' => '/tr', 'label' => 'Anasayfa'],
-                ['href' => '/tr/hakkimizda', 'label' => 'Hakkımızda'],
-                ['href' => '/tr/seyahat', 'label' => 'Seyahat'],
-                ['href' => '/tr/sss', 'label' => 'SSS'],
-                ['href' => '/tr/iletisim', 'label' => 'İletişim'],
-            ],
-            'treatments' => [
-                ['href' => '/tr/tedaviler/tupbebekivf', 'label' => 'Tüp Bebek (IVF) - ICSI'],
-                ['href' => '/tr/tedaviler/yumurtadonasyonu', 'label' => 'Yumurta Donasyonu'],
-            ],
+            'items' => $menu->items->map($mapItem)->toArray()
         ]);
     }
 }

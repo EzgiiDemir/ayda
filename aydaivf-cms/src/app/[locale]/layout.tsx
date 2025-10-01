@@ -1,14 +1,16 @@
+import type { ReactNode } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import "../globals.css";
 
 export default async function LocaleLayout({
                                                children,
                                                params,
                                            }: {
-    children: React.ReactNode;
-    params: Promise<{ locale: "tr" | "en" }>;
+    children: ReactNode;
+    params: { locale: "tr" | "en" };
 }) {
-    const { locale } = await params;
+    const { locale } = params;
 
     return (
         <div className="min-h-dvh flex flex-col">

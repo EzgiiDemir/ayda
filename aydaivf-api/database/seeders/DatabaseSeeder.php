@@ -13,5 +13,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(CmsSeeder::class);    }
+        $this->call(CmsSeeder::class);
+        $this->call(HeroSeeder::class);
+    }
 }
