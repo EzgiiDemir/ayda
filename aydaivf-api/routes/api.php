@@ -1,56 +1,57 @@
 <?php
 
+use App\Http\Controllers\Api\ContactController;
+use App\Http\Controllers\Api\FaqController;
 use App\Http\Controllers\Api\FooterController;
 use App\Http\Controllers\Api\HeroController;
+use App\Http\Controllers\Api\OurSuccessRatesController;
+use App\Http\Controllers\Api\OurTeamController;
+use App\Http\Controllers\Api\TravelController;
 use App\Http\Controllers\Api\TreatmentsSectionController;
 use App\Http\Controllers\Api\WelcomeController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\PageController;
 use App\Http\Controllers\Api\TreatmentController;
 use App\Http\Controllers\Api\MenuController;
-
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Burada uygulamanın tüm API route’larını tanımlarsın.
-| Bu dosyadaki route’lar otomatik olarak "api" prefix’i ile yüklenir.
-|
-*/
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+use App\Http\Controllers\Api\WhyUsController;
+use App\Http\Controllers\Api\ShowcaseController;
+use App\Http\Controllers\Api\OurPricesController;
 
 Route::middleware(['api.public'])->group(function () {
-    // ---- PAGE ROUTES ----
-    Route::get('pages/home', [PageController::class, 'home']);
-    Route::get('pages/hero', [PageController::class, 'hero']);
+    // Pages
+    Route::get('pages/home',   [PageController::class, 'home']);
     Route::get('pages/{slug}', [PageController::class, 'show'])->where('slug', '.*');
+    Route::get('our-team', [OurTeamController::class, 'show']); // /api/our-team
+    Route::get('our-success-rates', [OurSuccessRatesController::class, 'show']);
+    Route::get('faq', [FaqController::class, 'index']);   // /api/faq?lang=tr
+    Route::get('travel', [TravelController::class, 'index']); // /api/travel?lang=tr
+    Route::get('contact',  [ContactController::class, 'show']);   // /api/contact?lang=tr
+    Route::post('contact', [ContactController::class, 'submit']);
+    Route::get('why-us', WhyUsController::class);
 
-    // ---- SLUG LIST ----
+    // Slugs
     Route::get('slugs', [PageController::class, 'slugs']);
 
-    // ---- TREATMENTS ----
-    Route::get('treatments', [TreatmentController::class, 'index']);
+    // Treatments
+    Route::get('treatments',        [TreatmentController::class, 'index']);
     Route::get('treatments/{slug}', [TreatmentController::class, 'show'])->where('slug', '.*');
+
+    // Menu
+    Route::get('menus/main', [MenuController::class, 'main']);
+
+    // Standalone API (frontend bunları çağırıyor)
+    Route::get('hero',                [HeroController::class, 'show']);             // /api/hero
+    Route::get('welcome',             [WelcomeController::class, 'get']);           // /api/welcome
+    Route::get('treatments-section',  [TreatmentsSectionController::class, 'index']); // /api/treatments-section
+    Route::get('showcase',            [ShowcaseController::class, 'index']);        // /api/showcase
+    Route::get('footer',              [FooterController::class, 'index']);          // /api/footer
+    Route::get('why-us',              WhyUsController::class);                      // /api/why-us
+
+    // Our Prices
+    Route::get('our-prices',          [OurPricesController::class, 'show']);        // /api/our-prices
 });
 
-// ---- MENU ----
-Route::get('menus/main', [MenuController::class, 'main']);
+// MENUS
+Route::get('/menus/main', [MenuController::class, 'main']);
 Route::get('/menus/{key}', [MenuController::class, 'show']);
-
-Route::prefix('pages')->group(function () {
-    Route::get('/home', [PageController::class, 'home']);
-    Route::get('/hero', [PageController::class, 'hero']);
-    Route::get('/welcome', [PageController::class, 'welcome']); // <-- BUNU EKLE
-    Route::get('/{slug}', [PageController::class, 'show'])->where('slug', '.*');
-});
-Route::get('/hero', [HeroController::class, 'show']);
-Route::get('/welcome', [WelcomeController::class, 'get']);
-Route::get('/treatments-section',[App\Http\Controllers\Api\TreatmentsSectionController::class,'show']);
-Route::get('/treatments-section', [\App\Http\Controllers\Api\TreatmentsSectionController::class, 'index']);
-Route::get('/showcase', [\App\Http\Controllers\Api\ShowcaseController::class, 'index']);
-Route::get('/footer', [FooterController::class, 'index']);
+Route::get('why-us', WhyUsController::class);

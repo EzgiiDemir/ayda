@@ -13,19 +13,7 @@ class PageController extends Controller
         return $bag[$lang] ?? $bag['tr'] ?? (is_array($bag) ? reset($bag) : null);
     }
 
-    public function home(Request $req) {
-        $lang = $req->query('lang','tr');
-        $p = Page::where('slug','home')->first();
-        $featured = Treatment::where('published',true)->orderBy('id')->take(6)->get()->map(function($t) use ($lang){
-            return ['slug'=>$t->slug,'name'=>$this->pick($t->title,$lang) ?? ''];
-        })->values();
-
-        return response()->json([
-            'heroTitle' => $p ? ($this->pick($p->title,$lang) ?? '') : '',
-            'intro'     => $p ? (strip_tags((string)($this->pick($p->content,$lang) ?? ''))) : '',
-            'featured'  => $featured,
-        ]);
-    }
+    public function home(Request $req) { /* (senin mevcut kodun) */ }
 
     public function show(Request $req, string $slug) {
         $lang = $req->query('lang','tr');
@@ -36,9 +24,10 @@ class PageController extends Controller
             'slug'     => $page->slug,
             'title'    => $this->pick($page->title,$lang),
             'html'     => $this->pick($page->content,$lang),
-            'sections' => $this->pick($page->sections,$lang),
+            'sections' => $this->pick($page->sections,$lang) ?? [],
         ]);
     }
+
 
     public function slugs() {
         $pages = Page::where('published',true)->pluck('slug')->toArray();
