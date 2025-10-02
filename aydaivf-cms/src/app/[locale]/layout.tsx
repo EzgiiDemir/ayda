@@ -1,22 +1,25 @@
-import type { ReactNode } from "react";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+// src/app/[locale]/layout.tsx
 import "../globals.css";
+import type { Locale } from "@/lib/cms";
+import NavBar from "@/components/site/NavBar";
+import FooterServer from "@/components/site/FooterServer";
 
 export default async function LocaleLayout({
                                                children,
                                                params,
                                            }: {
-    children: ReactNode;
-    params: { locale: "tr" | "en" };
+    children: React.ReactNode;
+    params: { locale: Locale };
 }) {
-    const { locale } = params;
+    const locale = params.locale;
 
     return (
-        <div className="min-h-dvh flex flex-col">
-            <Navbar locale={locale} />
-            <main className="flex-1">{children}</main>
-            <Footer locale={locale} />
-        </div>
+        <html lang={locale}>
+        <body className="min-h-dvh flex flex-col">
+        <NavBar locale={locale} />
+        <div className="flex-1 flex flex-col">{children}</div>
+        <FooterServer locale={locale} />
+        </body>
+        </html>
     );
 }
