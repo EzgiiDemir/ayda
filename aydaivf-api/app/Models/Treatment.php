@@ -8,7 +8,7 @@ class Treatment extends Model
 {
     protected $fillable = [
         'slug','title','excerpt','content','sections','hero_image',
-        'meta_title','meta_description','position','published'
+        'meta_title','meta_description','published'
     ];
     protected $casts = [
         'title'=>'array','excerpt'=>'array','content'=>'array','sections'=>'array',

@@ -1,4 +1,5 @@
 <?php
+// app/Http/Controllers/Api/TreatmentsSectionController.php
 
 namespace App\Http\Controllers\Api;
 
@@ -8,37 +9,28 @@ use Illuminate\Http\Request;
 
 class TreatmentsSectionController extends Controller
 {
-    public function index(Request $req)
+    public function show(Request $req)
     {
-        $locale = $req->query('lang', 'tr');
-        $section = DB::table('treatments_sections')->where('locale', $locale)->first();
+        $lang = $req->query('lang', 'tr');
 
-        if (!$section) {
-            return response()->json(['error' => 'Not found'], 404);
+        $row = TreatmentsSection::where('locale', $lang)->first();
+        if (!$row) {
+            return response()->json(['message' => 'Not found'], 404);
         }
 
         return response()->json([
-            'title' => $section->title,
-            'subtitle' => $section->subtitle,
-            'intro' => $section->intro,
-            'intro2' => $section->intro2,
-            'background' => $section->background, // ✅ arka plan
-            'ctaText' => $section->ctaText,
-            'ctaLink' => $section->ctaLink,
-            'treatments' => json_decode($section->treatments, true),
+            'title'      => $row->title,
+            'subtitle'   => $row->subtitle,
+            'intro'      => $row->intro,
+            'intro2'     => $row->intro2,
+            'background' => $row->background,
+            'ctaText'    => $row->cta_text,
+            'ctaLink'    => $row->cta_link,
+            'treatments' => collect($row->treatments ?: [])
+                ->map(function ($t) {
+                    return ['slug' => $t['slug'] ?? '', 'label' => $t['label'] ?? ''];
+                })
+                ->values(),
         ]);
-    }
-    public function show(Request $req)
-    {
-        $lang = $req->query('lang','tr');
-        $section = TreatmentsSection::where('locale',$lang)->first();
-
-        if(!$section){
-            return response()->json([
-                'error'=>'not_found'
-            ],404);
-        }
-
-        return response()->json($section);
     }
 }

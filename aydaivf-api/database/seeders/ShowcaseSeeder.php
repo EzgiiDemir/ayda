@@ -1,33 +1,31 @@
 <?php
+// database/seeders/ShowcaseSeeder.php
 
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use App\Models\Showcase;
 
 class ShowcaseSeeder extends Seeder
 {
     public function run(): void
     {
-        DB::table('showcases')->updateOrInsert(
-            ['slug' => 'why-us', 'locale' => 'tr'],
+        // TR
+        Showcase::updateOrCreate(
+            ['locale' => 'tr', 'position' => 1],
             [
-                'image'      => 'https://api.aydaivf.com/uploads/showcase_tr.png',
-                'aspect'     => '16/7',     // tablo varsa
-                'max_height' => 400,        // tablo varsa
-                'updated_at' => now(),
-                'created_at' => now(),
+                // Örnek: API’nin uploads yolunu kullan (tam URL de verebilirsin)
+                'image'     => '/uploads/showcase_tr.png', // yoksa kendi dosyanı koy
+                'published' => true,
             ]
         );
 
-        DB::table('showcases')->updateOrInsert(
-            ['slug' => 'why-us', 'locale' => 'en'],
+        // EN
+        Showcase::updateOrCreate(
+            ['locale' => 'en', 'position' => 1],
             [
-                'image'      => 'https://api.aydaivf.com/uploads/showcase_en.png',
-                'aspect'     => '16/7',
-                'max_height' => 400,
-                'updated_at' => now(),
-                'created_at' => now(),
+                'image'     => '/uploads/showcase_en.png',
+                'published' => true,
             ]
         );
     }

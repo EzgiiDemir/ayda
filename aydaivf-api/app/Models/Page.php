@@ -14,6 +14,8 @@ class Page extends Model
         'hero_image',       // string
         'meta_title',       // json
         'meta_description', // json
+        'published',
+        'name','note','currency','amount','unit','position',
     ];
 
     protected $casts = [
@@ -22,5 +24,11 @@ class Page extends Model
         'sections'         => 'array',
         'meta_title'       => 'array',
         'meta_description' => 'array',
+        'name'      => 'array',
+        'note'      => 'array',
+        'published' => 'boolean',
+        'position'  => 'integer',
+        'amount'    => 'float',
+
     ];
 }

@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\Api\CmsWelcomeController;
 use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\FaqController;
 use App\Http\Controllers\Api\FooterController;
 use App\Http\Controllers\Api\HeroController;
 use App\Http\Controllers\Api\OurSuccessRatesController;
 use App\Http\Controllers\Api\OurTeamController;
+use App\Http\Controllers\Api\SiteController;
 use App\Http\Controllers\Api\TravelController;
 use App\Http\Controllers\Api\TreatmentsSectionController;
 use App\Http\Controllers\Api\WelcomeController;
@@ -28,6 +30,9 @@ Route::middleware(['api.public'])->group(function () {
     Route::get('contact',  [ContactController::class, 'show']);   // /api/contact?lang=tr
     Route::post('contact', [ContactController::class, 'submit']);
     Route::get('why-us', WhyUsController::class);
+    Route::get('/hero',     [PageController::class,'hero']);      // << şema fix
+    Route::get('/welcome',  [PageController::class,'welcome']);
+    Route::get('/treatments-section', [PageController::class, 'treatmentsSection']);
 
     // Slugs
     Route::get('slugs', [PageController::class, 'slugs']);
@@ -55,3 +60,9 @@ Route::middleware(['api.public'])->group(function () {
 Route::get('/menus/main', [MenuController::class, 'main']);
 Route::get('/menus/{key}', [MenuController::class, 'show']);
 Route::get('why-us', WhyUsController::class);
+Route::get('/footer', [FooterController::class, 'show']);
+Route::get('/welcome', [CmsWelcomeController::class, 'show']);
+Route::get('/treatments-section', [TreatmentsSectionController::class, 'show']);
+Route::get('/showcase', [ShowcaseController::class, 'index']);
+Route::get('/footer', [SiteController::class, 'footer']);
+Route::get('/our-prices', [OurPricesController::class, 'show']);
