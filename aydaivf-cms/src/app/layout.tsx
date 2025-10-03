@@ -16,10 +16,11 @@ export const metadata: Metadata = {
   title: "Ayda IVF"
 };
 
+// src/app/layout.tsx
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-      <html lang="tr">
-      <body>{children}</body>
-      </html>
-  );
+    return (
+        <html lang="tr">
+        <body className="min-h-dvh flex flex-col antialiased">{children}</body>
+        </html>
+    );
 }

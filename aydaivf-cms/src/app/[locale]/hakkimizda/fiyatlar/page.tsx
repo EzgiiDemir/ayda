@@ -1,4 +1,3 @@
-// src/app/[locale]/hakkimizda/fiyatlar/page.tsx
 import Prices from "@/components/ui/Prices";
 import { getOurPrices, Locale } from "@/lib/cms";
 

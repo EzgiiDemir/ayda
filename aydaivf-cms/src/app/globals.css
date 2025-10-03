@@ -6,21 +6,23 @@
     --ayda-blue: oklch(91.7% 0.08 205.041);
     --ayda-black: #0a0a0a;
     --ayda-gray: #6b7280;
+    --ayda-gray-light: oklch(92.9% 0.013 255.508);   /* eklendi */
     --ayda-white: #ffffff;
+
 }
 
 /* Text utilities */
-.text-ayda-black { color: var(--ayda-black); }
-.text-ayda-white { color: var(--ayda-white); }
-.text-ayda-pink-dark { color: var(--ayda-pink-dark); }
+.text-ayda-black      { color: var(--ayda-black); }
+.text-ayda-white      { color: var(--ayda-white); }
+.text-ayda-pink-dark  { color: var(--ayda-pink-dark); }
 .text-ayda-pink-light { color: var(--ayda-pink-light); }
-.text-ayda-gray { color: var(--ayda-gray); }
-
+.text-ayda-gray       { color: var(--ayda-gray); }
+.text-ayda-gray-light { color: var(--ayda-gray-light); } /* eklendi */
+.text-ayda-blue { color: var(--ayda-blue);}
 /* Backgrounds */
-.bg-ayda-pink-dark { background-color: var(--ayda-pink-dark); }
-.bg-ayda-pink-light { background-color: var(--ayda-pink-light); }
-.bg-ayda-blue { background-color: var(--ayda-blue); }
-
+.bg-ayda-pink-dark    { background-color: var(--ayda-pink-dark); }
+.bg-ayda-pink-light   { background-color: var(--ayda-pink-light); }
+.bg-ayda-blue         { background-color: var(--ayda-blue); }
 
 @media (prefers-color-scheme: dark) {
     :root {
@@ -37,7 +39,7 @@ html, body {
 }
 
 /* Makale içerikleri */
-.article p { margin-block: 0.75rem; line-height: 1.75; }
+.article p  { margin-block: 0.75rem; line-height: 1.75; }
 .article h2 { font-size: 1.5rem; font-weight: 600; margin-block: 1.25rem 0.5rem; }
 
 /* Utility Renk Kısayolları */
@@ -45,12 +47,12 @@ html, body {
 .text-ayda-white      { color: var(--ayda-white); }
 .text-ayda-pink-dark  { color: var(--ayda-pink-dark); }
 .text-ayda-pink-light { color: var(--ayda-pink-light); }
-.text-ayda-gray-dark  { color: var(--ayda-gray-dark); }
 .text-ayda-gray-light { color: var(--ayda-gray-light); }
 
 .bg-ayda-blue         { background-color: var(--ayda-blue); }
 .bg-ayda-pink-dark    { background-color: var(--ayda-pink-dark); }
 .bg-ayda-pink-light   { background-color: var(--ayda-pink-light); }
+.bg-ayda-gray-light   { background-color: var(--ayda-gray-light); }
 
 .border-ayda-pink-light { border-color: var(--ayda-pink-light); }
 

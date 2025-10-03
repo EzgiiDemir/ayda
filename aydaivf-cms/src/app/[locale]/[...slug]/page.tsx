@@ -4,9 +4,14 @@ import { getPage, getAllSlugs, type Locale } from "@/lib/cms";
 export const dynamic = "force-dynamic";
 export const revalidate = 60;
 
-export default async function Page({ params }: { params: { locale: Locale; slug: string[] } }) {
-    const { locale, slug } = params;
-    const path = (slug ?? []).join("/");
+export default async function Page({
+                                      params,
+                                  }: {
+    params: Promise<{ locale: Locale; slug?: string[] }>;
+}) {
+    const { locale, slug = [] } = await params;
+
+    const path = slug.join("/");
     const page = await getPage(locale, path);
     if (!page) return notFound();
 
