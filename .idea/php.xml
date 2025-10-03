@@ -122,9 +122,13 @@
       <path value="$PROJECT_DIR$/aydaivf-api/vendor/voku/portable-ascii" />
       <path value="$PROJECT_DIR$/aydaivf-api/vendor/laravel/tinker" />
       <path value="$PROJECT_DIR$/aydaivf-api/vendor/laravel/serializable-closure" />
+      <path value="$PROJECT_DIR$/aydaivf-api/vendor/doctrine/event-manager" />
+      <path value="$PROJECT_DIR$/aydaivf-api/vendor/psr/cache" />
+      <path value="$PROJECT_DIR$/aydaivf-api/vendor/doctrine/dbal" />
+      <path value="$PROJECT_DIR$/aydaivf-api/vendor/doctrine/deprecations" />
     </include_path>
   </component>
-  <component name="PhpProjectSharedConfiguration" php_language_level="8.3">
+  <component name="PhpProjectSharedConfiguration" php_language_level="7.3">
     <option name="suggestChangeDefaultLanguageLevel" value="false" />
   </component>
   <component name="PhpStanOptionsConfiguration">
